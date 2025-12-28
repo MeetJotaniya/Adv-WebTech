@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div>
+        <button id="myButton">Click Me</button>
+        <p id="output"></p>
+    </div>
+    <script>
+        const button = document.getElementById("myButton");
+        const output = document.getElementById("output");
+
+        button.addEventListener("click", function() {
+            output.textContent = "left Click pressed";
+        });
+
+        button.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            output.textContent = "Right Click pressed";
+        });
+
+    </script>
+</body>
+</html>

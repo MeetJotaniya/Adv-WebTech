@@ -1,0 +1,27 @@
+<html>
+<head>
+    <style>
+        .highlight {
+            color:white;
+            font-weight: bold;
+            transition: all 0.5s ease;
+            background-color:black;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="example" class="bold">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+<br>
+    <button onclick="addColorWithBold()">Text Color Change</button>
+    
+    <script>
+        function addColorWithBold() {
+            document.getElementById("example").classList.add("highlight");
+        }
+        
+    </script>
+</body>
+</html>

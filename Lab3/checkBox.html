@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div>
+        <h1>Checkbox List</h1>
+        <form id="list">
+            <input type="checkbox" name="rollNumber" value="a"> a&nbsp;
+            <input type="checkbox" name="rollNumber" value="b"> b&nbsp;
+            <input type="checkbox" name="rollNumber" value="c"> c&nbsp;
+            <input type="checkbox" name="rollNumber" value="d"> d&nbsp;
+            <input type="checkbox" name="rollNumber" value="e"> e&nbsp;
+        </form>
+        <button onclick="showSelected()">Show Selected values</button>
+        <p id="selectedValues"></p>
+    </div>
+
+    <script>
+        function showSelected() {
+            const checks = document.querySelectorAll('input[name="rollNumber"]: m');
+            let selectedValues = [];
+            checks.forEach((checkbox) => {
+                selectedValues.push(checkbox.value);
+            });
+            document.getElementById("selectedValues").textContent = "Selected values: " + selectedValues.join(", ");
+        }
+    </script>
+</body>
+</html>

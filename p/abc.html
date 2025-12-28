@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Johnson - Debate Arena</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            min-height: 100vh;
+            color: #fff;
+        }
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        /* Back Button */
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            color: #fff;
+        }
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+        /* Profile Header Banner */
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0 Q300,60 600,30 T1200,0 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.05)"/></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+        .header-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .profile-avatar-large {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            font-weight: bold;
+            color: #667eea;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+        .header-info {
+            flex: 1;
+        }
+        .user-name-large {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: white;
+        }
+        .username-large {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        .user-meta {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        /* Main Layout */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        /* Cards */
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* Bio */
+        .bio-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        /* Channel Banner */
+        .channel-banner {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .channel-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        .channel-details {
+            flex: 1;
+        }
+        .channel-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .channel-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        .channel-stats {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+        .channel-stat strong {
+            color: white;
+            font-weight: 700;
+        }
+        .channel-stat-divider {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        /* Recent Debates */
+        .debate-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        .debate-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+        .debate-topic {
+            font-size: 17px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 12px;
+        }
+        .debate-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .debate-result {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .result-won {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+        .result-lost {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        /* Sidebar */
+        .sidebar-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        .info-value {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        /* Topics List */
+        .topics-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .topic-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a5b4fc;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .channel-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+            .profile-header {
+                padding: 30px 20px;
+            }
+        }
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🎯 DebateArena</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#debates">Debates</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+                <li><a href="#profile">My Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <a href="#" class="back-button">
+            <span>←</span>
+            <span>Back to Search</span>
+        </a>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="header-content">
+                <div class="profile-avatar-large" id="userAvatar">AJ</div>
+                <div class="header-info">
+                    <h1 class="user-name-large" id="userName">Alex Johnson</h1>
+                    <p class="username-large" id="userUsername">@alexjohnson</p>
+                    
+                    <div class="user-meta">
+                        <div class="meta-item">
+                            <span>🌍</span>
+                            <span id="userCountry">United States</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Joined <span id="memberSince">Jan 2024</span></span>
+                        </div>
+                        <!-- <div class="meta-item">
+                            <span>🎯</span>
+                            <span><span id="winRate">70%</span> Win Rate</span>
+                        </div> -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <!-- <button class="btn btn-primary" onclick="challengeUser()">
+                            <span>⚔️</span>
+                            <span>Challenge to Debate</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="sendMessage()">
+                            <span>💬</span>
+                            <span>Send Message</span>
+                        </button> -->
+                        <button class="btn btn-secondary" id="followBtn" onclick="toggleFollow()">
+                            <span>➕</span>
+                            <span>Follow</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-layout">
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Stats -->
+                <!-- <div class="card">
+                    <h3 class="card-title">
+                        <span>📊</span>
+                        <span>Debate Statistics</span>
+                    </h3>
+                    <div class="stats-grid"> -->
+                        <!-- <div class="stat-card">
+                            <div class="stat-value" id="totalDebates">127</div>
+                            <div class="stat-label">Total Debates</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalWins">89</div>
+                            <div class="stat-label">Wins</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalLosses">38</div>
+                            <div class="stat-label">Losses</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="rating">1542</div>
+                            <div class="stat-label">Rating</div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                <div class="card">
+                    <h3 class="card-title">
+                        <span>📝</span>
+                        <span>About</span>
+                    </h3>
+                    <p class="bio-text" id="userBio">
+                        Passionate debater with a focus on political philosophy and ethics. I believe in respectful discourse and learning from every debate. Always open to challenging discussions on complex topics that broaden perspectives and encourage critical thinking.
+                    </p>
+                </div>
+
+                <!-- User's Channel -->
+                <div class="card">
+                    <h3 class="card-title">
+                        <span>📺</span>
+                        <span>Channel</span>
+                    </h3>
+                    <div class="channel-banner">
+                        <div class="channel-logo" id="channelLogo">
+                            <span>DT</span>
+                        </div>
+                        <div class="channel-details">
+                            <h4 class="channel-name" id="channelName">Debate Talk</h4>
+                            <p class="channel-description" id="channelDescription">
+                                Exploring critical thinking, philosophy, and debate techniques for the modern world.
+                            </p>
+                            <div class="channel-stats">
+                                <span class="channel-stat">
+                                    <strong>2.5K</strong> Subscribers
+                                </span>
+                                <span class="channel-stat-divider">•</span>
+                                <span class="channel-stat">
+                                    <strong>47</strong> Videos
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="visitChannel()">
+                        <span>🎬</span>
+                        <span>Visit Channel</span>
+                    </button>
+                </div>
+
+                <!-- Recent Debates -->
+                <div class="card">
+                    <h3 class="card-title">
+                        <span>🗣️</span>
+                        <span>Recent Debates</span>
+                    </h3>
+                    <div class="debate-item">
+                        <div class="debate-topic">Should AI development be regulated by governments?</div>
+                        <div class="debate-meta">
+                            <span>vs. @techphilosopher</span>
+                            <span>•</span>
+                            <span>2 days ago</span>
+                            <span>•</span>
+                            <span class="debate-result result-won">WON</span>
+                        </div>
+                    </div>
+                    <div class="debate-item">
+                        <div class="debate-topic">Universal Basic Income: Solution or Problem?</div>
+                        <div class="debate-meta">
+                            <span>vs. @economicsmajor</span>
+                            <span>•</span>
+                            <span>5 days ago</span>
+                            <span>•</span>
+                            <span class="debate-result result-won">WON</span>
+                        </div>
+                    </div>
+                    <div class="debate-item">
+                        <div class="debate-topic">Climate change: Individual vs Corporate responsibility</div>
+                        <div class="debate-meta">
+                            <span>vs. @greenadvocate</span>
+                            <span>•</span>
+                            <span>1 week ago</span>
+                            <span>•</span>
+                            <span class="debate-result result-lost">LOST</span>
+                        </div>
+                    </div>
+                    <div class="debate-item">
+                        <div class="debate-topic">The ethics of genetic engineering in humans</div>
+                        <div class="debate-meta">
+                            <span>vs. @bioethicist</span>
+                            <span>•</span>
+                            <span>2 weeks ago</span>
+                            <span>•</span>
+                            <span class="debate-result result-won">WON</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Quick Info -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Profile Info</h3>
+                    <div class="info-row">
+                        <span class="info-label">Last Active</span>
+                        <span class="info-value" id="lastActive">2 hours ago</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Response Time</span>
+                        <span class="info-value">< 4 hours</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Followers</span>
+                        <span class="info-value">1,234</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Following</span>
+                        <span class="info-value">567</span>
+                    </div>
+                </div>
+
+                <!-- Favorite Topics -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Favorite Topics</h3>
+                    <div class="topics-list">
+                        <span class="topic-tag">Politics</span>
+                        <span class="topic-tag">Philosophy</span>
+                        <span class="topic-tag">Ethics</span>
+                        <span class="topic-tag">Technology</span>
+                        <span class="topic-tag">Climate</span>
+                        <span class="topic-tag">Economics</span>
+                    </div>
+                </div>
+
+                <!-- Debate Style -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Debate Style</h3>
+                    <div class="info-row">
+                        <span class="info-label">Preferred Format</span>
+                        <span class="info-value">Structured</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Avg. Debate Length</span>
+                        <span class="info-value">45 mins</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Style</span>
+                        <span class="info-value">Analytical</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Sample user data (this would come from your API: GET /user/profile/username)
+        const userData = {
+            username: "alexjohnson",
+            first_name: "Alex",
+            last_name: "Johnson",
+            bio: "Passionate debater with a focus on political philosophy and ethics. I believe in respectful discourse and learning from every debate. Always open to challenging discussions on complex topics that broaden perspectives and encourage critical thinking.",
+            country: "United States",
+            created_at: "2024-01-15T10:00:00Z",
+            stats: {
+                total_debates: 127,
+                wins: 89,
+                losses: 38,
+                rating: 1542
+            }
+        };
+
+        // Initialize page
+        function initializePage() {
+            const initials = `${userData.first_name[0]}${userData.last_name[0]}`;
+            document.getElementById('userAvatar').textContent = initials;
+            document.getElementById('userName').textContent = `${userData.first_name} ${userData.last_name}`;
+            document.getElementById('userUsername').textContent = `@${userData.username}`;
+            document.getElementById('userCountry').textContent = userData.country;
+            document.getElementById('userBio').textContent = userData.bio;
+
+            const memberDate = new Date(userData.created_at);
+            document.getElementById('memberSince').textContent = 
+                memberDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+            document.getElementById('totalDebates').textContent = userData.stats.total_debates;
+            document.getElementById('totalWins').textContent = userData.stats.wins;
+            document.getElementById('totalLosses').textContent = userData.stats.losses;
+            document.getElementById('rating').textContent = userData.stats.rating;
+
+            const winRate = Math.round((userData.stats.wins / userData.stats.total_debates) * 100);
+            document.getElementById('winRate').textContent = `${winRate}%`;
+
+            animateStats();
+        }
+
+        function challengeUser() {
+            alert(`⚔️ Challenge sent to ${userData.first_name}! They will be notified.`);
+        }
+
+        function sendMessage() {
+            alert(`💬 Opening message composer to ${userData.first_name}...`);
+        }
+
+        function toggleFollow() {
+            const btn = document.getElementById('followBtn');
+            const isFollowing = btn.innerHTML.includes('Following');
+                        
+            if (isFollowing) {
+                btn.innerHTML = '<span>➕</span><span>Follow</span>';
+                btn.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                btn.innerHTML = '<span>✓</span><span>Following</span>';
+                btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+            }
+        }
+
+        function viewAllVideos() {
+            alert(`📺 Opening ${userData.first_name}'s full channel...`);
+        }
+
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(stat => {
+                const text = stat.textContent;
+                const isPercentage = text.includes('%');
+                const value = parseInt(text.replace(/[^\d]/g, ''));
+                                
+                let current = 0;
+                const increment = value / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= value) {
+                        stat.textContent = isPercentage ? `${value}%` : value;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = isPercentage ? `${Math.floor(current)}%` : Math.floor(current);
+                    }
+                }, 30);
+            });
+        }
+
+        window.addEventListener('load', initializePage);
+    </script>
+</body>
+</html>

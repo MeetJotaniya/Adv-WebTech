@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<body>
+    <script>
+        let num1 = parseInt(prompt("Please Enter number 1 : "));
+
+        let num2 = parseInt(prompt("Please Enter number 2 : "));
+
+
+        for (i = num1; i < num2; i++) {
+            let isPrime = true;
+            for (j = 2; j <= Math.sqrt(i); j++) {
+                if (i % j === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime) {
+                console.log(i);
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

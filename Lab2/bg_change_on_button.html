@@ -1,0 +1,19 @@
+<html>
+
+<body>
+    <button onclick="changeBg()">Click Me</button>
+
+
+    <script>
+        function changeBg() {
+            let bgred, bggreen, bgblue;
+            bgred = Math.floor(Math.random() * 256);
+            bggreen = Math.floor(Math.random() * 256);
+            bgblue = Math.floor(Math.random() * 256);
+            
+            document.body.style.backgroundColor = `rgb(${bgred},${bggreen},${bgblue})`
+        }
+    </script>
+</body>
+
+</html>

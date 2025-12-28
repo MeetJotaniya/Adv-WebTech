@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+
+
+
+<body>
+    <div>
+         <div class="container">
+            <h1>CRUD</h1>
+            
+            <h2>Name : </h2>
+            <div><input type="text" id="addName" placeholder="Enter Name For Add: " required></div>
+            <button onclick="addMember()">Add</button>
+            
+            <br><br>
+            <h4>Enter Id and Name For Edit the name of Any Member :</h4>
+            <div><input type="number" id="editId" placeholder="Enter Id For Edit: " required></div>
+            <div><input type="text" id="editName" placeholder="Enter Name For Edit: " required></div>
+            <button onclick="editMember()">Edit</button>
+            
+            <br><br>
+            <h4>Enter Id For Delete Any Member :</h4>
+            <div><input type="number" id="deleteId" placeholder="Enter Id For Delete: " required></div>
+            <button onclick="deleteMember()">Delete</button>
+            
+
+        
+        </div>  
+    </div>
+    
+
+      <script>
+       let members = [];
+       let currentId = 1;
+
+       function addMember() {
+            const name = document.getElementById("addName").value;
+            if (name) {
+                members.push({ id: currentId++, name: name });
+                document.getElementById("addName").value = "";
+                displayMembers();
+            }
+        }
+        
+
+
+    </script>
+</body>
+
+</html>

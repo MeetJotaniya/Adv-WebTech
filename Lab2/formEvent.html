@@ -1,0 +1,33 @@
+<html>
+
+<body>
+    <div>
+        <form>
+            <div class="container">
+                <h1>Form</h1>
+                <h2>Name : </h2>
+                <div><input type="text" placeholder="Enter Name : " onblur="handleBlur()" onfocus="handleFocus()"></div>
+                <br>
+                <h2>Email : </h2>
+                <div><input type="email" placeholder="Enter email : " onfocus="handleFocus()" onblur="handleBlur()"></div>
+                <br>
+
+                <button>Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function handleBlur() {
+            console.log("Blur event happend");
+
+        }
+        function handleFocus() {
+
+            console.log("Focus event happend");
+        }
+
+    </script>
+</body>
+
+</html>
